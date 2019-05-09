@@ -1,0 +1,6 @@
+{
+  "require": {
+    "simplepie/simplepie": "^1.5",
+    "soundasleep/html2text": "~1.1"
+  }
+}
