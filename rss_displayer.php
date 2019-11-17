@@ -41,9 +41,13 @@ foreach($feed->get_items() as $item) {
 
 	$raw_description = \Soundasleep\Html2Text::convert($item->get_content(), array("drop_links" => true));
     $description = mb_convert_encoding($item->get_title(), "UTF-8", "auto") . "\r\n";
+    $description .= "-- " . $item->get_link() . "\r\n\r\n";
 	$description .= mb_convert_encoding($raw_description, "UTF-8", "auto");
 
-	echo $description . "\r\n\r\n" . "-- " . $item->get_link() . "\r\n\r\n";
+    // Message text can't be longer than ~3000 characters
+    $description = strlen($description) > 2900 ? substr($description,0,2900)."[...]" : $description;
+
+	echo $description . "\r\n\r\n";
     
     if ($httpModSince == 0) {
         break;  // Show only one entry for first request
